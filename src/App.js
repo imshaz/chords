@@ -15,23 +15,17 @@ const chordsClip = clip({
   pattern: 'x---'.repeat(4)
 });
 
-const genChords = () => {
-
-}
 console.log(chordsClip)
-
-
-
 
 function App() {
 
   function handleSelect(e) {
     chordMap.filter((item, index) => {
       if (e.target.value === item.key) {
-        console.log(index, e.target.value, item.key);
-        console.log(chordMap[index])
+
         setChords(chordMap[index])
-        console.log(currentChords.chords)
+        setpianoKey(chordMap[index].key)
+
 
       }
     })
@@ -56,19 +50,17 @@ function App() {
   { key: 'G' }, { key: 'G#/Ab' }, { key: 'A' }, { key: 'A#/Bb' }, { key: 'B' }
   ])
   const [currentChords, setChords] = useState(chordMap[0])
+  const [pianoKey, setpianoKey] = useState('D')
+  const genChords = () => {
+    let index = Math.floor(Math.random() * chordMap.length)
+    setChords(chordMap[index])
+    setpianoKey(chordMap[index].key)
+  }
 
-  console.log(currentChords)
   return (
     <div>
       <Header />
       <div className="container">
-        <select onChange={(e) => { handleSelect(e) }}>
-          {
-            keys.map(key => {
-              return <option value={key.key}>{key.key}</option>
-            })
-          }
-        </select>
         <div className="center text-center mt-5">
           <div
             className="sweet-round-button medium"
@@ -151,8 +143,8 @@ function App() {
         <div className="row mt-5">
           <div className="col-md-8 offset-md-2">
             <KeyboardVer1
-              startNote='c4'
-              endNote='f4'
+              startNote='c3'
+              endNote='f5'
               audioContext={audioContext}
               soundfontHostname={soundfontHostname}
               instrumentName={instrument}
@@ -180,6 +172,14 @@ function App() {
         <hr className="mt-5" />
         <div className="row mt-5">
           <div className="col">
+            <div style={{ textAlign: 'center', padding: '30px', lineHeight: '20px' }}> <select value={pianoKey} onChange={(e) => { handleSelect(e) }}>
+              {
+                keys.map(key => {
+                  return <option value={key.key}>{key.key}</option>
+                })
+              }
+            </select>
+            </div>
             <div className="generator-centered-block top-24-12 bottom-24-12">
               <div
                 className="sweet-round-button large"
