@@ -9,7 +9,7 @@
   "dependencies": {
     "@tonaljs/key": "^3.4.1",
     "classnames": "^2.2.5",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "nodemon": "^2.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.12.0",
